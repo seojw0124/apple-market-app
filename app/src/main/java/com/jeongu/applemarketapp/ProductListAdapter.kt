@@ -41,6 +41,8 @@ class ProductListAdapter(
                 tvProductTitle.text = itemView.context.getString(product.title)
                 tvProductTradingPlace.text = itemView.context.getString(product.tradingPlace)
                 tvProductPrice.text = itemView.context.getString(product.price)
+                tvCommentCount.text = itemView.context.getString(product.commentCount)
+                tvFavoriteCount.text = itemView.context.getString(product.favoriteCount)
             }
         }
     }
