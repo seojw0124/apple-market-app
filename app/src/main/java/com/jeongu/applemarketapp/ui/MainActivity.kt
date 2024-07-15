@@ -1,4 +1,4 @@
-package com.jeongu.applemarketapp
+package com.jeongu.applemarketapp.ui
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.jeongu.applemarketapp.R
 import com.jeongu.applemarketapp.data.ProductInfo
 import com.jeongu.applemarketapp.data.ProductManager
 import com.jeongu.applemarketapp.databinding.ActivityMainBinding
@@ -53,7 +54,12 @@ class MainActivity : AppCompatActivity() {
         binding.rvProductList.apply {
             adapter = productListAdapter
             productListAdapter.submitList(ProductManager.getList().toList())
-            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@MainActivity,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
         }
     }
 

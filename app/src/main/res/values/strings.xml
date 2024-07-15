@@ -1,6 +1,9 @@
 <resources>
-    <!-- MainActivity -->
+    <!-- Common -->
     <string name="app_name">AppleMarketApp</string>
+    <string name="format_price_unit">%s원</string>
+
+    <!-- MainActivity -->
     <string name="appbar_title_location">내배캠동</string>
     <string name="description_notification_icon">알림 아이콘 이미지</string>
     <string name="description_favorite_icon">좋아요 아이콘 이미지</string>
