@@ -1,9 +1,14 @@
 <resources>
+    <!-- MainActivity -->
     <string name="app_name">AppleMarketApp</string>
     <string name="appbar_title_location">내배캠동</string>
     <string name="description_notification_icon">알림 아이콘 이미지</string>
     <string name="description_favorite_icon">좋아요 아이콘 이미지</string>
     <string name="description_comment_icon">댓글 아이콘 이미지</string>
+    <string name="dialog_title_finish_app">종료</string>
+    <string name="dialog_message_finish_app">정말 종료하시겠습니까?</string>
+    <string name="dialog_positive_finish_app">확인</string>
+    <string name="dialog_negative_finish_app">취소</string>
 
     <!-- Dummy Data -->
     <string name="data_product_01_title">산지 한달된 선풍기 팝니다</string>

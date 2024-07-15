@@ -1,10 +1,13 @@
 package com.jeongu.applemarketapp
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             },
             onLongClick = { product ->
-                Toast.makeText(this, "Long Clicked! ${product.title}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Long Clicked! ${product.id}", Toast.LENGTH_SHORT).show()
             }
         )
     }
@@ -44,6 +47,15 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                alertDialog(
+                    getString(R.string.dialog_title_finish_app),
+                    getString(R.string.dialog_message_finish_app),
+                    getString(R.string.dialog_positive_finish_app)
+                )
+            }
+        })
 
         initRecyclerView()
     }
@@ -51,8 +63,29 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         binding.rvProductList.apply {
             adapter = productListAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
             addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
         }
+    }
+
+    private fun alertDialog(
+        title: String,
+        message: String,
+        positiveText: String,
+    ) {
+        val listener = DialogInterface.OnClickListener { _, p1 ->
+            when (p1) {
+                DialogInterface.BUTTON_POSITIVE -> finish()
+                DialogInterface.BUTTON_NEGATIVE -> return@OnClickListener
+            }
+        }
+
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setIcon(R.drawable.ic_comment)
+        }.apply {
+            setPositiveButton(positiveText, listener)
+            setNegativeButton("취소", listener)
+        }.show()
     }
 }
