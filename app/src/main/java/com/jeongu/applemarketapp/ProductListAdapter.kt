@@ -9,7 +9,8 @@ import com.jeongu.applemarketapp.databinding.ItemProductBinding
 
 class ProductListAdapter(
     private val list: MutableList<ProductInfo>,
-    private val onClick: (ProductInfo) -> Unit
+    private val onClick: (ProductInfo) -> Unit,
+    private val onLongClick: (ProductInfo) -> Unit
 ) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,6 +36,10 @@ class ProductListAdapter(
         fun bind(product: ProductInfo) {
             itemView.setOnClickListener {
                 onClick(product)
+            }
+            itemView.setOnLongClickListener {
+                onLongClick(product)
+                true
             }
             with(binding) {
                 ivProduct.setImageResource(product.image)

@@ -88,8 +88,8 @@ object ProductManager {
             ProductInfo(
                 8,
                 R.drawable.img_product_08,
-                R.string.data_product_08_title,
                 R.string.data_product_08_introduction,
+                R.string.data_product_08_title,
                 R.string.data_product_08_seller_name,
                 R.string.data_product_08_price,
                 R.string.data_product_08_trading_place,

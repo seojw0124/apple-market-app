@@ -1,5 +1,9 @@
 package com.jeongu.applemarketapp.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class ProductInfo(
     val id: Int,
     val image: Int,
@@ -10,4 +14,4 @@ data class ProductInfo(
     val tradingPlace: Int,
     val favoriteCount: Int,
     val commentCount: Int,
-)
+): Parcelable

@@ -21,12 +21,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     private val productListAdapter by lazy {
-        ProductListAdapter(ProductManager.getProductList()) { product ->
-//            val intent = Intent(this, ProductDetailActivity::class.java).apply {
-//                putExtra(EXTRA_PRODUCT, product)
-//            }
-            Toast.makeText(this, "${product.id}", Toast.LENGTH_SHORT).show()
-        }
+        ProductListAdapter(
+            ProductManager.getProductList(),
+            onClick = { product ->
+                val intent = Intent(this, ProductDetailActivity::class.java)
+                intent.putExtra(EXTRA_PRODUCT, product)
+                startActivity(intent)
+            },
+            onLongClick = { product ->
+                Toast.makeText(this, "Long Clicked! ${product.title}", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
