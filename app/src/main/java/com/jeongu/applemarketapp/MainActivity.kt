@@ -4,16 +4,13 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeongu.applemarketapp.data.ProductInfo
 import com.jeongu.applemarketapp.data.ProductManager
 import com.jeongu.applemarketapp.databinding.ActivityMainBinding
 
@@ -25,14 +22,11 @@ class MainActivity : AppCompatActivity() {
 
     private val productListAdapter by lazy {
         ProductListAdapter(
-            ProductManager.getProductList(),
             onClick = { product ->
-                val intent = Intent(this, ProductDetailActivity::class.java)
-                intent.putExtra(EXTRA_PRODUCT, product)
-                startActivity(intent)
+                navigateToProductDetail(product)
             },
             onLongClick = { product ->
-                Toast.makeText(this, "Long Clicked! ${product.id}", Toast.LENGTH_SHORT).show()
+                showDeleteProductDialog(product)
             }
         )
     }
@@ -47,34 +41,65 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                alertDialog(
-                    getString(R.string.dialog_title_finish_app),
-                    getString(R.string.dialog_message_finish_app),
-                    getString(R.string.dialog_positive_finish_app)
-                )
-            }
-        })
+        setLayout()
+    }
 
+    private fun setLayout() {
         initRecyclerView()
+        setOnBackPressedHandler()
     }
 
     private fun initRecyclerView() {
         binding.rvProductList.apply {
             adapter = productListAdapter
+            productListAdapter.submitList(ProductManager.getList().toList())
             addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
         }
     }
 
-    private fun alertDialog(
+    private fun setOnBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
+        })
+    }
+
+    private fun navigateToProductDetail(product: ProductInfo) {
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        intent.putExtra(EXTRA_PRODUCT, product)
+        startActivity(intent)
+    }
+
+    private fun showDeleteProductDialog(product: ProductInfo) {
+        showDialog(
+            getString(R.string.dialog_title_delete_product),
+            getString(R.string.dialog_message_delete_product),
+        ) {
+            val isDeleted = ProductManager.removeItem(product)
+            if (isDeleted) {
+                productListAdapter.submitList(ProductManager.getList().toList())
+            }
+        }
+    }
+
+    private fun showExitDialog() {
+        showDialog(
+            getString(R.string.dialog_title_finish_app),
+            getString(R.string.dialog_message_finish_app),
+        ) {
+            finish()
+        }
+    }
+
+    private fun showDialog(
         title: String,
         message: String,
-        positiveText: String,
+        action: () -> Unit
     ) {
         val listener = DialogInterface.OnClickListener { _, p1 ->
             when (p1) {
-                DialogInterface.BUTTON_POSITIVE -> finish()
+                DialogInterface.BUTTON_POSITIVE -> action()
                 DialogInterface.BUTTON_NEGATIVE -> return@OnClickListener
             }
         }
@@ -84,8 +109,8 @@ class MainActivity : AppCompatActivity() {
             setMessage(message)
             setIcon(R.drawable.ic_comment)
         }.apply {
-            setPositiveButton(positiveText, listener)
-            setNegativeButton("취소", listener)
+            setPositiveButton(getString(R.string.dialog_label_positive), listener)
+            setNegativeButton(getString(R.string.dialog_label_negative), listener)
         }.show()
     }
 }

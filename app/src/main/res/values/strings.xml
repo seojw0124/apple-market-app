@@ -7,8 +7,10 @@
     <string name="description_comment_icon">댓글 아이콘 이미지</string>
     <string name="dialog_title_finish_app">종료</string>
     <string name="dialog_message_finish_app">정말 종료하시겠습니까?</string>
-    <string name="dialog_positive_finish_app">확인</string>
-    <string name="dialog_negative_finish_app">취소</string>
+    <string name="dialog_label_positive">확인</string>
+    <string name="dialog_label_negative">취소</string>
+    <string name="dialog_title_delete_product">상품 삭제</string>
+    <string name="dialog_message_delete_product">상품을 정말로 삭제하시겠습니까?</string>
 
     <!-- Dummy Data -->
     <string name="data_product_01_title">산지 한달된 선풍기 팝니다</string>

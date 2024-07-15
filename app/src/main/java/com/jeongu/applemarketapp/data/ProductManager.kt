@@ -121,7 +121,9 @@ object ProductManager {
         )
     }
 
-    fun getProductList(): MutableList<ProductInfo> {
-        return productInfoList
+    fun getList(): MutableList<ProductInfo> = productInfoList
+
+    fun removeItem(product: ProductInfo): Boolean {
+        return productInfoList.remove(product)
     }
 }
