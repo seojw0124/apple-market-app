@@ -15,7 +15,7 @@ import com.jeongu.applemarketapp.data.ProductInfo
 import com.jeongu.applemarketapp.data.ProductManager
 import com.jeongu.applemarketapp.databinding.ActivityMainBinding
 
-private const val EXTRA_PRODUCT = "product"
+const val EXTRA_PRODUCT = "product"
 
 class MainActivity : AppCompatActivity() {
 

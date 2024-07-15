@@ -135,6 +135,7 @@
                 tools:text="샤넬 탑핸들 가방" />
 
             <TextView
+                android:id="@+id/tv_product_detail_introduction"
                 style="@style/AppTextBody"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -180,6 +181,7 @@
         app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar" />
 
     <TextView
+        android:id="@+id/tv_product_detail_price"
         style="@style/AppTextTitle.S20"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
