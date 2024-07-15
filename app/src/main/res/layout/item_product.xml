@@ -18,15 +18,13 @@
 
     <TextView
         android:id="@+id/tv_product_title"
+        style="@style/AppTextTitle.S16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_product"
         app:layout_constraintTop_toTopOf="@id/iv_product"
@@ -36,7 +34,7 @@
         android:id="@+id/tv_product_trading_place"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray_700"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/tv_product_title"
         app:layout_constraintStart_toStartOf="@id/tv_product_title"
@@ -45,24 +43,22 @@
 
     <TextView
         android:id="@+id/tv_product_price"
+        style="@style/AppTextTitle.S16"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/tv_product_trading_place"
         app:layout_constraintStart_toStartOf="@id/tv_product_trading_place"
         app:layout_constraintTop_toBottomOf="@id/tv_product_trading_place"
         tools:text="100,000원" />
 
     <ImageView
-        android:id="@+id/iv_comment"
+        android:id="@+id/iv_comment_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="4dp"
         android:contentDescription="@string/description_comment_icon"
         android:src="@drawable/ic_comment"
-        app:layout_constraintBottom_toBottomOf="@id/iv_favorite"
+        app:layout_constraintBottom_toBottomOf="@id/iv_like_image"
         app:layout_constraintEnd_toStartOf="@id/tv_comment_count" />
 
     <TextView
@@ -70,28 +66,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
-        android:src="@drawable/ic_favorite_border"
-        app:layout_constraintBottom_toBottomOf="@id/tv_favorite_count"
-        app:layout_constraintEnd_toStartOf="@id/iv_favorite"
+        android:src="@drawable/ic_like_outlined"
+        app:layout_constraintBottom_toBottomOf="@id/tv_like_count"
+        app:layout_constraintEnd_toStartOf="@id/iv_like_image"
         tools:text="15" />
 
     <ImageView
-        android:id="@+id/iv_favorite"
+        android:id="@+id/iv_like_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="4dp"
-        android:contentDescription="@string/description_favorite_icon"
-        android:src="@drawable/ic_favorite_border"
-        app:layout_constraintBottom_toBottomOf="@id/tv_favorite_count"
-        app:layout_constraintEnd_toStartOf="@id/tv_favorite_count"
-        app:layout_constraintTop_toTopOf="@id/tv_favorite_count" />
+        android:contentDescription="@string/description_like_icon"
+        android:src="@drawable/selector_like_image"
+        app:layout_constraintBottom_toBottomOf="@id/tv_like_count"
+        app:layout_constraintEnd_toStartOf="@id/tv_like_count"
+        app:layout_constraintTop_toTopOf="@id/tv_like_count" />
 
 
     <TextView
-        android:id="@+id/tv_favorite_count"
+        android:id="@+id/tv_like_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_favorite_border"
+        android:src="@drawable/ic_like_outlined"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="26" />

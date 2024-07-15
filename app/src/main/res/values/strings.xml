@@ -2,11 +2,11 @@
     <!-- Common -->
     <string name="app_name">AppleMarketApp</string>
     <string name="format_price_unit">%s원</string>
+    <string name="description_like_icon">좋아요 아이콘 이미지</string>
 
     <!-- MainActivity -->
     <string name="appbar_title_location">내배캠동</string>
     <string name="description_notification_icon">알림 아이콘 이미지</string>
-    <string name="description_favorite_icon">좋아요 아이콘 이미지</string>
     <string name="description_comment_icon">댓글 아이콘 이미지</string>
     <string name="dialog_title_finish_app">종료</string>
     <string name="dialog_message_finish_app">정말 종료하시겠습니까?</string>
@@ -15,13 +15,20 @@
     <string name="dialog_title_delete_product">상품 삭제</string>
     <string name="dialog_message_delete_product">상품을 정말로 삭제하시겠습니까?</string>
 
+    <!-- ProductDetailActivity -->
+    <string name="description_product_detail_image">상품 상세 이미지</string>
+    <string name="description_seller_profile_image">판매자 프로필 이미지</string>
+    <string name="description_manner_grade_icon">매너 온도 이모티콘</string>
+    <string name="label_manner_temperature"><u>매너온도</u></string>
+    <string name="btn_label_chat">채팅하기</string>
+
     <!-- Dummy Data -->
     <string name="data_product_01_title">산지 한달된 선풍기 팝니다</string>
     <string name="data_product_01_introduction">이사가서 필요가 없어졌어요 급하게 내놓습니다</string>
     <string name="data_product_01_seller_name">대현동</string>
     <string name="data_product_01_price">1000</string>
     <string name="data_product_01_trading_place">서울 서대문구 창천동</string>
-    <string name="data_product_01_favorite_count">13</string>
+    <string name="data_product_01_like_count">13</string>
     <string name="data_product_01_comment_count">25</string>
 
     <string name="data_product_02_title">김치냉장고</string>
@@ -29,7 +36,7 @@
     <string name="data_product_02_seller_name">안마담</string>
     <string name="data_product_02_price">20000</string>
     <string name="data_product_02_trading_place">인천 계양구 귤현동</string>
-    <string name="data_product_02_favorite_count">8</string>
+    <string name="data_product_02_like_count">8</string>
     <string name="data_product_02_comment_count">28</string>
 
     <string name="data_product_03_title">샤넬 카드지갑</string>
@@ -37,7 +44,7 @@
     <string name="data_product_03_seller_name">코코유</string>
     <string name="data_product_03_price">10000</string>
     <string name="data_product_03_trading_place">수성구 범어동</string>
-    <string name="data_product_03_favorite_count">23</string>
+    <string name="data_product_03_like_count">23</string>
     <string name="data_product_03_comment_count">5</string>
 
     <string name="data_product_04_title">금고</string>
@@ -45,7 +52,7 @@
     <string name="data_product_04_seller_name">Nicole</string>
     <string name="data_product_04_price">10000</string>
     <string name="data_product_04_trading_place">해운대구 우제2동</string>
-    <string name="data_product_04_favorite_count">14</string>
+    <string name="data_product_04_like_count">14</string>
     <string name="data_product_04_comment_count">17</string>
 
     <string name="data_product_05_title">갤럭시Z플립3 팝니다</string>
@@ -53,7 +60,7 @@
     <string name="data_product_05_seller_name">절명</string>
     <string name="data_product_05_price">150000</string>
     <string name="data_product_05_trading_place">연제구 연산제8동</string>
-    <string name="data_product_05_favorite_count">22</string>
+    <string name="data_product_05_like_count">22</string>
     <string name="data_product_05_comment_count">9</string>
 
     <string name="data_product_06_title">프라다 복조리백</string>
@@ -61,7 +68,7 @@
     <string name="data_product_06_seller_name">미니멀하게</string>
     <string name="data_product_06_price">50000</string>
     <string name="data_product_06_trading_place">수원시 영통구 원천동</string>
-    <string name="data_product_06_favorite_count">25</string>
+    <string name="data_product_06_like_count">25</string>
     <string name="data_product_06_comment_count">16</string>
 
     <string name="data_product_07_title">울산 동해오션뷰 60평 복층 펜트하우스 1일 숙박권 펜션 힐링 숙소 별장</string>
@@ -69,15 +76,15 @@
     <string name="data_product_07_seller_name">굿리치</string>
     <string name="data_product_07_price">150000</string>
     <string name="data_product_07_trading_place">남구 옥동</string>
-    <string name="data_product_07_favorite_count">142</string>
+    <string name="data_product_07_like_count">142</string>
     <string name="data_product_07_comment_count">54</string>
 
-    <string name="data_product_08_introduction">샤넬 탑핸들 가방</string>
-    <string name="data_product_08_title">샤넬 트랜디 CC 탑핸들 스몰 램스킨 블랙 금장 플랩백 !\n + "\n" + "색상 : 블랙\n" + "사이즈 : 25.5cm * 17.5cm * 8cm\n" + "구성 : 본품더스트\n" + "\n" + "급하게 돈이 필요해서 팝니다 ㅠ ㅠ</string>
+    <string name="data_product_08_title">샤넬 탑핸들 가방</string>
+    <string name="data_product_08_introduction">샤넬 트랜디 CC 탑핸들 스몰 램스킨 블랙 금장 플랩백 !\n\n색상 : 블랙\n사이즈 : 25.5cm * 17.5cm * 8cm\n구성 : 본품더스트\n\n급하게 돈이 필요해서 팝니다 ㅠ ㅠ</string>
     <string name="data_product_08_seller_name">난쉽</string>
     <string name="data_product_08_price">180000</string>
     <string name="data_product_08_trading_place">동래구 온천제2동</string>
-    <string name="data_product_08_favorite_count">31</string>
+    <string name="data_product_08_like_count">31</string>
     <string name="data_product_08_comment_count">7</string>
 
     <string name="data_product_09_title">4행정 엔진분무기 판매합니다.</string>
@@ -85,14 +92,14 @@
     <string name="data_product_09_seller_name">알뜰한</string>
     <string name="data_product_09_price">30000</string>
     <string name="data_product_09_trading_place">원주시 명륜2동</string>
-    <string name="data_product_09_favorite_count">7</string>
+    <string name="data_product_09_like_count">7</string>
     <string name="data_product_09_comment_count">28</string>
 
     <string name="data_product_10_title">셀린느 버킷 가방</string>
-    <string name="data_product_10_introduction">22년 신세계 대전 구매입니당\n + "셀린느 버킷백\n" + "구매해서 몇번사용했어요\n" + "까짐 스크래치 없습니다.\n" + "타지역에서 보내는거라 택배로 진행합니당!"</string>
+    <string name="data_product_10_introduction">22년 신세계 대전 구매입니당\n셀린느 버킷백\n구매해서 몇번사용했어요\n까짐 스크래치 없습니다.\n타지역에서 보내는거라 택배로 진행합니당!</string>
     <string name="data_product_10_seller_name">똑태현</string>
     <string name="data_product_10_price">190000</string>
     <string name="data_product_10_trading_place">중구 동화동</string>
-    <string name="data_product_10_favorite_count">40</string>
+    <string name="data_product_10_like_count">40</string>
     <string name="data_product_10_comment_count">6</string>
 </resources>

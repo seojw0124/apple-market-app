@@ -7,12 +7,10 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/AppTextTitle.S16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/appbar_title_location"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
         app:drawableRightCompat="@drawable/ic_arrow_down"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

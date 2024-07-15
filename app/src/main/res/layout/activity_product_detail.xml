@@ -2,9 +2,204 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/product_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.ProductDetailActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/view_bottom_action_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_product_detail_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:contentDescription="@string/description_product_detail_image"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="5:4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/img_product_08" />
+
+            <View
+                android:id="@+id/view_seller_info_area"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_product_detail_image" />
+
+            <ImageView
+                android:id="@+id/iv_seller_profile_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_circle_image"
+                android:clipToOutline="true"
+                android:contentDescription="@string/description_seller_profile_image"
+                android:src="@drawable/img_profile"
+                app:layout_constraintBottom_toBottomOf="@id/view_seller_info_area"
+                app:layout_constraintStart_toStartOf="@id/view_seller_info_area"
+                app:layout_constraintTop_toTopOf="@id/view_seller_info_area" />
+
+            <TextView
+                android:id="@+id/tv_seller_name"
+                style="@style/AppTextTitle.S16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/tv_manner_temperature"
+                app:layout_constraintStart_toEndOf="@id/iv_seller_profile_image"
+                app:layout_constraintTop_toTopOf="@id/iv_seller_profile_image"
+                tools:text="서정우" />
+
+            <TextView
+                android:id="@+id/tv_product_detail_trading_place"
+                style="@style/AppTextLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@id/tv_label_manner_temperature"
+                app:layout_constraintStart_toStartOf="@id/tv_seller_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_seller_name"
+                tools:text="동래구 온천제2동" />
+
+            <TextView
+                android:id="@+id/tv_manner_temperature"
+                style="@style/AppTextSecondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_manner_grade_image"
+                app:layout_constraintEnd_toStartOf="@id/iv_manner_grade_image"
+                app:layout_constraintTop_toTopOf="@id/iv_manner_grade_image"
+                tools:text="39.3 °C" />
+
+            <ImageView
+                android:id="@+id/iv_manner_grade_image"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="@string/description_manner_grade_icon"
+                app:layout_constraintBottom_toTopOf="@id/tv_label_manner_temperature"
+                app:layout_constraintEnd_toEndOf="@id/view_seller_info_area"
+                app:layout_constraintTop_toTopOf="@id/view_seller_info_area"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:src="@drawable/ic_grade_04" />
+
+            <TextView
+                android:id="@+id/tv_label_manner_temperature"
+                style="@style/AppTextCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="17dp"
+                android:text="@string/label_manner_temperature"
+                app:layout_constraintBottom_toBottomOf="@+id/view_seller_info_area"
+                app:layout_constraintEnd_toEndOf="@id/view_seller_info_area"
+                app:layout_constraintTop_toBottomOf="@id/iv_manner_grade_image" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider_seller_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:dividerColor="@color/gray_100"
+                app:dividerThickness="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_seller_info_area" />
+
+            <TextView
+                android:id="@+id/tv_product_detail_title"
+                style="@style/AppTextTitle.S24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_seller_info"
+                tools:text="샤넬 탑핸들 가방" />
+
+            <TextView
+                style="@style/AppTextBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/tv_product_detail_title"
+                app:layout_constraintStart_toStartOf="@id/tv_product_detail_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_product_detail_title"
+                tools:text="@string/data_product_08_introduction" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/view_bottom_action_bar"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_product_detail_like_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:contentDescription="@string/description_like_icon"
+        android:src="@drawable/selector_like_image"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom_action_bar"
+        app:layout_constraintStart_toStartOf="@id/view_bottom_action_bar"
+        app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar" />
+
+    <View
+        android:id="@+id/divider_like_image"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/gray_100"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom_action_bar"
+        app:layout_constraintStart_toEndOf="@id/iv_product_detail_like_image"
+        app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar" />
+
+    <TextView
+        style="@style/AppTextTitle.S20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom_action_bar"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@id/divider_like_image"
+        app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar"
+        tools:text="180,000원" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/AppButtonPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginEnd="15dp"
+        android:paddingVertical="0dp"
+        android:text="@string/btn_label_chat"
+        app:layout_constraintBottom_toBottomOf="@id/view_bottom_action_bar"
+        app:layout_constraintEnd_toEndOf="@id/view_bottom_action_bar"
+        app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

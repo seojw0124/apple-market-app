@@ -44,7 +44,7 @@ class ProductListAdapter(
                     price
                 )
                 tvCommentCount.text = itemView.context.getString(product.commentCount)
-                tvFavoriteCount.text = itemView.context.getString(product.favoriteCount)
+                tvLikeCount.text = itemView.context.getString(product.likeCount)
             }
         }
     }
