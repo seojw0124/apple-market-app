@@ -193,6 +193,15 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
         })
     }
 
+    private fun showExitDialog() {
+        showDialog(
+            getString(R.string.dialog_title_finish_app),
+            getString(R.string.dialog_message_finish_app),
+        ) {
+            finish()
+        }
+    }
+
     private fun navigateToProductDetail(product: ProductInfo) {
         val intent = Intent(this, ProductDetailActivity::class.java)
         intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT, product)
@@ -204,19 +213,14 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
             getString(R.string.dialog_title_delete_product),
             getString(R.string.dialog_message_delete_product),
         ) {
-            val isDeleted = ProductManager.removeItem(product)
-            if (isDeleted) {
-                productListAdapter.submitList(ProductManager.getList().toList())
-            }
+            removeProduct(product)
         }
     }
 
-    private fun showExitDialog() {
-        showDialog(
-            getString(R.string.dialog_title_finish_app),
-            getString(R.string.dialog_message_finish_app),
-        ) {
-            finish()
+    private fun removeProduct(product: ProductInfo) {
+        val isDeleted = ProductManager.removeItem(product)
+        if (isDeleted) {
+            productListAdapter.submitList(ProductManager.getList().toList())
         }
     }
 

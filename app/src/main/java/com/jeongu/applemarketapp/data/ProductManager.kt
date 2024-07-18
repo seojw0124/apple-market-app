@@ -125,7 +125,7 @@ object ProductManager {
                 R.string.data_product_10_price,
                 R.string.data_product_10_trading_place,
                 40,
-               6,
+                6,
                 false
             ),
         )
