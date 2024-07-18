@@ -15,6 +15,7 @@ class ProductListAdapter(
     private val onClick: (ProductInfo) -> Unit,
     private val onLongClick: (ProductInfo) -> Unit
 ) : ListAdapter<ProductInfo, ProductListAdapter.ProductViewHolder>(ProductDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductViewHolder(binding)
