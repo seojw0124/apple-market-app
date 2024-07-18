@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jeongu.applemarketapp.R
 import com.jeongu.applemarketapp.data.ProductInfo
 import com.jeongu.applemarketapp.databinding.ItemProductBinding
+import com.jeongu.applemarketapp.ui.extensions.applyNumberFormat
 import com.jeongu.applemarketapp.ui.extensions.convertThreeDigitComma
 
 class ProductListAdapter(
@@ -33,18 +34,14 @@ class ProductListAdapter(
                 onLongClick(product)
                 true
             }
-            val price = itemView.context.getString(product.price).toInt().convertThreeDigitComma()
-
+            val context = itemView.context
             with(binding) {
                 ivProduct.setImageResource(product.image)
-                tvProductTitle.text = itemView.context.getString(product.title)
-                tvProductTradingPlace.text = itemView.context.getString(product.tradingPlace)
-                tvProductPrice.text = itemView.context.getString(
-                    R.string.format_price_unit,
-                    price
-                )
-                tvCommentCount.text = itemView.context.getString(product.commentCount)
-                tvLikeCount.text = itemView.context.getString(product.likeCount)
+                tvProductTitle.text = context.getString(product.title)
+                tvProductTradingPlace.text = context.getString(product.tradingPlace)
+                tvProductPrice.applyNumberFormat(context.getString(product.price).toInt())
+                tvCommentCount.text = context.getString(product.commentCount)
+                tvLikeCount.text = context.getString(product.likeCount)
             }
         }
     }
