@@ -1,5 +1,6 @@
 package com.jeongu.applemarketapp.data
 
+import android.content.Context
 import com.jeongu.applemarketapp.R
 
 object ProductManager {
@@ -16,8 +17,9 @@ object ProductManager {
                 R.string.data_product_01_seller_name,
                 R.string.data_product_01_price,
                 R.string.data_product_01_trading_place,
-                R.string.data_product_01_like_count,
-                R.string.data_product_01_comment_count
+                13,
+                25,
+                false
             ),
             ProductInfo(
                 2,
@@ -27,8 +29,9 @@ object ProductManager {
                 R.string.data_product_02_seller_name,
                 R.string.data_product_02_price,
                 R.string.data_product_02_trading_place,
-                R.string.data_product_02_like_count,
-                R.string.data_product_02_comment_count
+                8,
+                28,
+                false
             ),
             ProductInfo(
                 3,
@@ -38,8 +41,9 @@ object ProductManager {
                 R.string.data_product_03_seller_name,
                 R.string.data_product_03_price,
                 R.string.data_product_03_trading_place,
-                R.string.data_product_03_like_count,
-                R.string.data_product_03_comment_count
+                23,
+                5,
+                false
             ),
             ProductInfo(
                 4,
@@ -49,8 +53,9 @@ object ProductManager {
                 R.string.data_product_04_seller_name,
                 R.string.data_product_04_price,
                 R.string.data_product_04_trading_place,
-                R.string.data_product_04_like_count,
-                R.string.data_product_04_comment_count
+                14,
+                17,
+                false
             ),
             ProductInfo(
                 5,
@@ -60,8 +65,9 @@ object ProductManager {
                 R.string.data_product_05_seller_name,
                 R.string.data_product_05_price,
                 R.string.data_product_05_trading_place,
-                R.string.data_product_05_like_count,
-                R.string.data_product_05_comment_count
+                22,
+                9,
+                false
             ),
             ProductInfo(
                 6,
@@ -71,8 +77,9 @@ object ProductManager {
                 R.string.data_product_06_seller_name,
                 R.string.data_product_06_price,
                 R.string.data_product_06_trading_place,
-                R.string.data_product_06_like_count,
-                R.string.data_product_06_comment_count
+                25,
+                16,
+                false
             ),
             ProductInfo(
                 7,
@@ -82,8 +89,9 @@ object ProductManager {
                 R.string.data_product_07_seller_name,
                 R.string.data_product_07_price,
                 R.string.data_product_07_trading_place,
-                R.string.data_product_07_like_count,
-                R.string.data_product_07_comment_count
+                142,
+                54,
+                false
             ),
             ProductInfo(
                 8,
@@ -93,8 +101,9 @@ object ProductManager {
                 R.string.data_product_08_seller_name,
                 R.string.data_product_08_price,
                 R.string.data_product_08_trading_place,
-                R.string.data_product_08_like_count,
-                R.string.data_product_08_comment_count
+                31,
+                7,
+                false
             ),
             ProductInfo(
                 9,
@@ -104,8 +113,9 @@ object ProductManager {
                 R.string.data_product_09_seller_name,
                 R.string.data_product_09_price,
                 R.string.data_product_09_trading_place,
-                R.string.data_product_09_like_count,
-                R.string.data_product_09_comment_count
+                7,
+                28,
+                false
             ),
             ProductInfo(
                 10,
@@ -115,8 +125,9 @@ object ProductManager {
                 R.string.data_product_10_seller_name,
                 R.string.data_product_10_price,
                 R.string.data_product_10_trading_place,
-                R.string.data_product_10_like_count,
-                R.string.data_product_10_comment_count
+                40,
+               6,
+                false
             ),
         )
     }
@@ -125,5 +136,17 @@ object ProductManager {
 
     fun removeItem(product: ProductInfo): Boolean {
         return productInfoList.remove(product)
+    }
+
+    fun updateLike(productId: Int, isLiked: Boolean): Boolean {
+        val product = getProduct(productId) ?: return false
+        val likeCount = if (isLiked) product.likeCount + 1 else product.likeCount - 1
+        val newProduct = product.copy(isLiked = isLiked, likeCount = likeCount)
+        productInfoList[productInfoList.indexOf(product)] = newProduct
+        return true
+    }
+
+    private fun getProduct(productId: Int): ProductInfo? {
+        return productInfoList.find { it.id == productId }
     }
 }

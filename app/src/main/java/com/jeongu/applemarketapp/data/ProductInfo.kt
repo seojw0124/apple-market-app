@@ -14,4 +14,5 @@ data class ProductInfo(
     val tradingPlace: Int,
     val likeCount: Int,
     val commentCount: Int,
+    val isLiked: Boolean
 ): Parcelable

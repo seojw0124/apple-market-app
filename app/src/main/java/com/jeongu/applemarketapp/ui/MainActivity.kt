@@ -6,21 +6,21 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.jeongu.applemarketapp.R
 import com.jeongu.applemarketapp.data.ProductInfo
 import com.jeongu.applemarketapp.data.ProductManager
 import com.jeongu.applemarketapp.databinding.ActivityMainBinding
 
-const val EXTRA_PRODUCT = "product"
+class MainActivity : AppCompatActivity(), ProductItemClickListener {
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityMainBinding
-
+    private lateinit var binding: ActivityMainBinding
     private val productListAdapter by lazy {
         ProductListAdapter(
             onClick = { product ->
@@ -28,9 +28,11 @@ class MainActivity : AppCompatActivity() {
             },
             onLongClick = { product ->
                 showDeleteProductDialog(product)
-            }
+            },
+            listener = this
         )
     }
+    private lateinit var likeResult: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setLayout() {
         initRecyclerView()
+        setLikeResult()
         setOnBackPressedHandler()
     }
 
@@ -54,12 +57,18 @@ class MainActivity : AppCompatActivity() {
         binding.rvProductList.apply {
             adapter = productListAdapter
             productListAdapter.submitList(ProductManager.getList().toList())
-            addItemDecoration(
-                DividerItemDecoration(
-                    this@MainActivity,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
+            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+        }
+    }
+
+    private fun setLikeResult() {
+        likeResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val isLikeUpdated = result.data?.getBooleanExtra(EXTRA_BOOLEAN_LIKE_UPDATE, false)
+                if (isLikeUpdated == true) {
+                    productListAdapter.submitList(ProductManager.getList().toList())
+                }
+            }
         }
     }
 
@@ -73,8 +82,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToProductDetail(product: ProductInfo) {
         val intent = Intent(this, ProductDetailActivity::class.java)
-        intent.putExtra(EXTRA_PRODUCT, product)
-        startActivity(intent)
+        intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT, product)
+        likeResult.launch(intent)
     }
 
     private fun showDeleteProductDialog(product: ProductInfo) {
@@ -101,12 +110,12 @@ class MainActivity : AppCompatActivity() {
     private fun showDialog(
         title: String,
         message: String,
-        action: () -> Unit
+        positiveAction: () -> Unit
     ) {
         val listener = DialogInterface.OnClickListener { _, p1 ->
             when (p1) {
-                DialogInterface.BUTTON_POSITIVE -> action()
-                DialogInterface.BUTTON_NEGATIVE -> return@OnClickListener
+                DialogInterface.BUTTON_POSITIVE -> positiveAction()
+                DialogInterface.BUTTON_NEGATIVE -> {}
             }
         }
 
@@ -114,9 +123,26 @@ class MainActivity : AppCompatActivity() {
             setTitle(title)
             setMessage(message)
             setIcon(R.drawable.ic_comment)
-        }.apply {
             setPositiveButton(getString(R.string.dialog_label_positive), listener)
             setNegativeButton(getString(R.string.dialog_label_negative), listener)
         }.show()
+    }
+
+    override fun onLikeClick(productId: Int, isLikeImageChecked: Boolean) {
+        val isLikeUpdated = ProductManager.updateLike(productId, isLikeImageChecked)
+        showSnackBar(isLikeUpdated, isLikeImageChecked)
+    }
+
+    private fun showSnackBar(isUpdated: Boolean, isLikeImageChecked: Boolean) {
+        val message = when {
+            isUpdated && isLikeImageChecked -> getString(R.string.message_add_interest_list)
+            isUpdated && !isLikeImageChecked -> getString(R.string.message_remove_interest_list)
+            else -> getString(R.string.message_unknown_error)
+        }
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val EXTRA_BOOLEAN_LIKE_UPDATE = "isLikeUpdated"
     }
 }

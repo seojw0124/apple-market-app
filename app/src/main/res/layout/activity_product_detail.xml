@@ -157,13 +157,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <ToggleButton
         android:id="@+id/iv_product_detail_like_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginStart="15dp"
+        android:background="@drawable/selector_like_image"
         android:contentDescription="@string/description_like_icon"
-        android:src="@drawable/selector_like_image"
+        android:textOff=""
+        android:textOn=""
         app:layout_constraintBottom_toBottomOf="@id/view_bottom_action_bar"
         app:layout_constraintStart_toStartOf="@id/view_bottom_action_bar"
         app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar" />

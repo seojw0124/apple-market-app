@@ -2,6 +2,7 @@ package com.jeongu.applemarketapp.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,8 @@ import com.jeongu.applemarketapp.ui.extensions.convertThreeDigitComma
 
 class ProductListAdapter(
     private val onClick: (ProductInfo) -> Unit,
-    private val onLongClick: (ProductInfo) -> Unit
+    private val onLongClick: (ProductInfo) -> Unit,
+    private val listener: ProductItemClickListener
 ) : ListAdapter<ProductInfo, ProductListAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -22,12 +24,21 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
+    }
+
+    private fun updateLikeCount(isLikeImageChecked: Boolean, tvLikeCount: TextView) {
+        val likeCount = tvLikeCount.text.toString().toInt()
+        tvLikeCount.text = if (isLikeImageChecked) {
+            (likeCount + 1).toString()
+        } else {
+            (likeCount - 1).toString()
+        }
     }
 
     inner class ProductViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: ProductInfo) {
+        fun bind(product: ProductInfo, listener: ProductItemClickListener) {
             itemView.setOnClickListener {
                 onClick(product)
             }
@@ -41,8 +52,15 @@ class ProductListAdapter(
                 tvProductTitle.text = context.getString(product.title)
                 tvProductTradingPlace.text = context.getString(product.tradingPlace)
                 tvProductPrice.applyNumberFormat(context.getString(product.price).toInt())
-                tvCommentCount.text = context.getString(product.commentCount)
-                tvLikeCount.text = context.getString(product.likeCount)
+                tvCommentCount.text = product.commentCount.toString()
+                tvLikeCount.text = product.likeCount.toString()
+                ivLikeIcon.apply {
+                    isChecked = product.isLiked
+                    setOnClickListener {
+                        listener.onLikeClick(product.id, isChecked)
+                        updateLikeCount(isChecked, tvLikeCount)
+                    }
+                }
             }
         }
     }

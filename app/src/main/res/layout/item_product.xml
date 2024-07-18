@@ -71,13 +71,15 @@
         app:layout_constraintEnd_toStartOf="@id/iv_like_icon"
         tools:text="15" />
 
-    <ImageView
+    <ToggleButton
         android:id="@+id/iv_like_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="4dp"
         android:contentDescription="@string/description_like_icon"
-        android:src="@drawable/selector_like_image"
+        android:background="@drawable/selector_like_image"
+        android:textOff=""
+        android:textOn=""
         app:layout_constraintBottom_toBottomOf="@id/tv_like_count"
         app:layout_constraintEnd_toStartOf="@id/tv_like_count"
         app:layout_constraintTop_toTopOf="@id/tv_like_count" />
