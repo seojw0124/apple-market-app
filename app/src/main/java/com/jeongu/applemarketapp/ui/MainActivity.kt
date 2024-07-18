@@ -1,9 +1,18 @@
 package com.jeongu.applemarketapp.ui
 
 import android.app.AlertDialog
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.DialogInterface
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.RingtoneManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -13,6 +22,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -55,6 +66,7 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
     private fun setLayout() {
         initRecyclerView()
         initScrollToTopButton()
+        initNotificationIconImage()
         setLikeResult()
         setOnBackPressedHandler()
     }
@@ -97,6 +109,71 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
             ivScrollToTop.setOnClickListener {
                 binding.rvProductList.smoothScrollToPosition(0)
             }
+        }
+    }
+
+    private fun initNotificationIconImage() {
+        binding.toolbar.ivNotificationIcon.setOnClickListener {
+            requestPermission()
+            createNotification()
+        }
+    }
+
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+                // 알림 권한이 없다면, 사용자에게 권한 요청
+                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                    putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                }
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun createNotification() {
+        val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val channel = getNotificationChannel()
+        manager.createNotificationChannel(channel)
+
+        val pendingIntent = createPendingIntent()
+
+        val notification = NotificationCompat.Builder(this, CHANNEL_ID).run {
+            setSmallIcon(R.drawable.ic_launcher_foreground)
+            setWhen(System.currentTimeMillis())
+            setContentTitle(CHANNEL_ID)
+            setContentText(CHANNEL_NAME)
+            setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            setContentIntent(pendingIntent)
+        }.build()
+
+        manager.notify(NOTIFICATION_ID, notification)
+    }
+
+    private fun createPendingIntent(): PendingIntent {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        return PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
+    private fun getNotificationChannel(): NotificationChannel {
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        return NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance).apply {
+            description = "키워드 알림 설명"
+            setShowBadge(true)
+            val uri: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val audioAttributes = AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build()
+            setSound(uri, audioAttributes)
+            enableVibration(true)
         }
     }
 
@@ -183,5 +260,8 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
 
     companion object {
         const val EXTRA_BOOLEAN_LIKE_UPDATE = "isLikeUpdated"
+        const val CHANNEL_ID = "키워드 알림"
+        const val CHANNEL_NAME = "설정한 키워드에 대한 알림 도착했습니다!!"
+        const val NOTIFICATION_ID = 1
     }
 }

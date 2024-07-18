@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_notification_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/description_notification_icon"
