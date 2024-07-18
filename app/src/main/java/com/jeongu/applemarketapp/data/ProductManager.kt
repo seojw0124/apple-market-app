@@ -1,6 +1,5 @@
 package com.jeongu.applemarketapp.data
 
-import android.content.Context
 import com.jeongu.applemarketapp.R
 
 object ProductManager {

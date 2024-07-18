@@ -6,11 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jeongu.applemarketapp.R
 import com.jeongu.applemarketapp.data.ProductInfo
 import com.jeongu.applemarketapp.databinding.ItemProductBinding
 import com.jeongu.applemarketapp.ui.extensions.applyNumberFormat
-import com.jeongu.applemarketapp.ui.extensions.convertThreeDigitComma
 
 class ProductListAdapter(
     private val onClick: (ProductInfo) -> Unit,
