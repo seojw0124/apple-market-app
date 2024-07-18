@@ -4,6 +4,10 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -12,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.jeongu.applemarketapp.R
 import com.jeongu.applemarketapp.data.ProductInfo
@@ -49,6 +54,7 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
 
     private fun setLayout() {
         initRecyclerView()
+        initScrollToTopButton()
         setLikeResult()
         setOnBackPressedHandler()
     }
@@ -58,6 +64,39 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
             adapter = productListAdapter
             productListAdapter.submitList(ProductManager.getList().toList())
             addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+        }
+    }
+
+    private fun initScrollToTopButton() {
+        val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in_scroll_button)
+        val fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out_scroll_button)
+        var isTop = true
+
+        with(binding) {
+            rvProductList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (!rvProductList.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        ivScrollToTop.apply {
+                            visibility = View.GONE
+                            startAnimation(fadeOut)
+                        }
+                        isTop = true
+                    } else {
+                        if (isTop) {
+                            ivScrollToTop.apply {
+                                visibility = View.VISIBLE
+                                ivScrollToTop.startAnimation(fadeIn)
+                            }
+                            isTop = false
+                        }
+                    }
+                }
+            })
+
+            ivScrollToTop.setOnClickListener {
+                binding.rvProductList.smoothScrollToPosition(0)
+            }
         }
     }
 

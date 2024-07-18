@@ -21,13 +21,16 @@ class ProductDetailActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityProductDetailBinding.inflate(layoutInflater)
     }
+
+    private val defaultProduct = ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0, false)
     private val product: ProductInfo by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(EXTRA_PRODUCT, ProductInfo::class.java) ?: ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0, false)
+            intent.getParcelableExtra(EXTRA_PRODUCT, ProductInfo::class.java) ?: defaultProduct
         } else {
-            intent.getParcelableExtra(EXTRA_PRODUCT) ?: ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0, false)
+            intent.getParcelableExtra(EXTRA_PRODUCT) ?: defaultProduct
         }
     }
+
     private var isLikeUpdated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,17 +46,13 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun setLayout() {
-        getProductInfo()
-        initToolbar()
-        initLikeImageView()
-        setOnBackPressedHandler()
-    }
-
-    private fun getProductInfo() {
-        if (product.id != -1) {
-            setProductInfo()
-        } else {
+        if (product.id == -1) {
             finish()
+        } else {
+            setProductInfo()
+            initToolbar()
+            initLikeImageView()
+            setOnBackPressedHandler()
         }
     }
 
@@ -70,9 +69,7 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun initToolbar() {
-        binding.ivToolbarBackIcon.setOnClickListener {
-            navigateToHome()
-        }
+        binding.ivToolbarBackIcon.setOnClickListener { navigateToHome() }
     }
 
     private fun initLikeImageView() {
@@ -106,14 +103,11 @@ class ProductDetailActivity : AppCompatActivity() {
     private fun navigateToHome() {
         isLikeUpdated = product.isLiked != binding.ivProductDetailLikeIcon.isChecked
         if (isLikeUpdated) {
-            Log.d("ProductDetailActivity", "isLikeUpdated: $isLikeUpdated")
             val intent = Intent(this@ProductDetailActivity, MainActivity::class.java)
             intent.putExtra(MainActivity.EXTRA_BOOLEAN_LIKE_UPDATE, isLikeUpdated)
             setResult(RESULT_OK, intent)
-            finish()
-        } else {
-            finish()
         }
+        finish()
     }
 
     companion object {

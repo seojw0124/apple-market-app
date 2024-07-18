@@ -14,6 +14,7 @@
     <string name="dialog_label_negative">취소</string>
     <string name="dialog_title_delete_product">상품 삭제</string>
     <string name="dialog_message_delete_product">상품을 정말로 삭제하시겠습니까?</string>
+    <string name="description_scroll_to_top_icon">위로 스크롤하는 아이콘 이미지</string>
 
     <!-- ProductDetailActivity -->
     <string name="description_product_detail_image">상품 상세 이미지</string>
