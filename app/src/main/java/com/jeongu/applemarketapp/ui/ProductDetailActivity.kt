@@ -16,7 +16,13 @@ class ProductDetailActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityProductDetailBinding.inflate(layoutInflater)
     }
-    private lateinit var product: ProductInfo
+    private val product: ProductInfo by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(EXTRA_PRODUCT, ProductInfo::class.java) ?: ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0)
+        } else {
+            intent.getParcelableExtra(EXTRA_PRODUCT) ?: ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +37,11 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun setLayout() {
-        getProduct()
+        getProductInfo()
+        initToolbar()
     }
 
-    private fun getProduct() {
-        // 상품 정보를 불러와서 화면에 표시
-        product = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(EXTRA_PRODUCT, ProductInfo::class.java) ?: ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0)
-        } else {
-            intent.getParcelableExtra(EXTRA_PRODUCT) ?: ProductInfo(-1, 0, 0, 0, 0, 0, 0, 0, 0)
-        }
-
+    private fun getProductInfo() {
         if (product.id != -1) {
             setProductInfo()
         } else {
@@ -57,6 +57,12 @@ class ProductDetailActivity : AppCompatActivity() {
             tvProductDetailTitle.setText(product.title)
             tvProductDetailIntroduction.setText(product.introduction)
             tvProductDetailPrice.applyNumberFormat(getString(product.price).toInt())
+        }
+    }
+
+    private fun initToolbar() {
+        binding.ivToolbarBackIcon.setOnClickListener {
+            finish()
         }
     }
 }

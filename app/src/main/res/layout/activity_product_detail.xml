@@ -204,4 +204,15 @@
         app:layout_constraintEnd_toEndOf="@id/view_bottom_action_bar"
         app:layout_constraintTop_toTopOf="@id/view_bottom_action_bar" />
 
+    <ImageView
+        android:id="@+id/iv_toolbar_back_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
