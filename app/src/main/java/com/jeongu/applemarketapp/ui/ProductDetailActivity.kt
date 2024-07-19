@@ -103,8 +103,6 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRandomMannerTemperature() = (0..1000).random() / 10.0
-
     private fun handleLikeIconClick() {
         val isUpdated = ProductManager.updateLike(product.id, binding.ivProductDetailLikeIcon.isChecked)
         showSnackBar(isUpdated, binding.ivProductDetailLikeIcon.isChecked)
