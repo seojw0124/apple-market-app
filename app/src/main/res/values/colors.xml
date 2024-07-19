@@ -3,8 +3,12 @@
     <color name="black">#FF000000</color>
     <color name="gray_100">#DCD8D8</color>
     <color name="gray_300">#A8A3A3</color>
+    <color name="gray_500">#898A93</color>
     <color name="gray_700">#434A53</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_300">#599CE6</color>
+    <color name="blue_700">#4277AE</color>
     <color name="carrot">#FF6F0F</color>
+    <color name="yellow">#E5BD6B</color>
     <color name="green">#00A05B</color>
 </resources>

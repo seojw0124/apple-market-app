@@ -185,23 +185,6 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
         }
     }
 
-    private fun setOnBackPressedHandler() {
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                showExitDialog()
-            }
-        })
-    }
-
-    private fun showExitDialog() {
-        showDialog(
-            getString(R.string.dialog_title_finish_app),
-            getString(R.string.dialog_message_finish_app),
-        ) {
-            finish()
-        }
-    }
-
     private fun navigateToProductDetail(product: ProductInfo) {
         val intent = Intent(this, ProductDetailActivity::class.java)
         intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT, product)
@@ -257,6 +240,23 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
             else -> getString(R.string.message_unknown_error)
         }
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun setOnBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
+        })
+    }
+
+    private fun showExitDialog() {
+        showDialog(
+            getString(R.string.dialog_title_finish_app),
+            getString(R.string.dialog_message_finish_app),
+        ) {
+            finish()
+        }
     }
 
     companion object {

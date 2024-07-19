@@ -49,6 +49,7 @@ class ProductDetailActivity : AppCompatActivity() {
             finish()
         } else {
             setProductInfo()
+            setSellerMannerGradeInfo()
             initToolbar()
             initLikeImageView()
             setOnBackPressedHandler()
@@ -67,6 +68,31 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setSellerMannerGradeInfo() {
+        val randomTemperature = (0..1000).random() / 10.0
+        val (colorResId, imageResId) = getResIdByTemperature(randomTemperature)
+        with(binding) {
+            tvMannerTemperature.apply {
+                text = getString(R.string.format_manner_temperature, randomTemperature)
+                setTextColor(getColor(colorResId))
+            }
+            ivMannerGradeIcon.setImageResource(imageResId)
+        }
+    }
+
+    private fun getResIdByTemperature(randomTemperature: Double): Pair<Int, Int> {
+        val temperature = (randomTemperature * 10).toInt()
+        val pair = when (temperature) {
+            in 0..100 -> Pair(R.color.gray_500, R.drawable.ic_grade_01)
+            in 101..250 -> Pair(R.color.blue_700, R.drawable.ic_grade_02)
+            in 251..370 -> Pair(R.color.blue_300, R.drawable.ic_grade_03)
+            in 371..500 -> Pair(R.color.green, R.drawable.ic_grade_04)
+            in 501..650 -> Pair(R.color.yellow, R.drawable.ic_grade_05)
+            else -> Pair(R.color.carrot, R.drawable.ic_grade_06)
+        }
+        return pair
+    }
+
     private fun initToolbar() {
         binding.ivToolbarBackIcon.setOnClickListener { navigateToHome() }
     }
@@ -76,6 +102,8 @@ class ProductDetailActivity : AppCompatActivity() {
             ivProductDetailLikeIcon.setOnClickListener { handleLikeIconClick() }
         }
     }
+
+    private fun getRandomMannerTemperature() = (0..1000).random() / 10.0
 
     private fun handleLikeIconClick() {
         val isUpdated = ProductManager.updateLike(product.id, binding.ivProductDetailLikeIcon.isChecked)
@@ -91,13 +119,6 @@ class ProductDetailActivity : AppCompatActivity() {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun setOnBackPressedHandler() {
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navigateToHome()
-            }
-        })
-    }
 
     private fun navigateToHome() {
         isLikeUpdated = product.isLiked != binding.ivProductDetailLikeIcon.isChecked
@@ -107,6 +128,14 @@ class ProductDetailActivity : AppCompatActivity() {
             setResult(RESULT_OK, intent)
         }
         finish()
+    }
+
+    private fun setOnBackPressedHandler() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navigateToHome()
+            }
+        })
     }
 
     companion object {
