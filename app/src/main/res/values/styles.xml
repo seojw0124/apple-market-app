@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppRoundedImage">
-        <item name="cornerSize">10dp</item>
-    </style>
+<!--    <style name="AppRoundedImage">-->
+<!--        <item name="cornerSize">10dp</item>-->
+<!--    </style>-->
 
     <style name="AppButtonPrimary">
         <item name="android:background">@drawable/bg_button_carrot</item>
@@ -49,5 +49,40 @@
         <item name="android:textColor">@color/green</item>
         <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
+
+    <!--  Component  -->
+    <style name="App.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleCentered">true</item>
+        <item name="titleTextAppearance">@style/App.TextHeadline32</item>
+    </style>
+
+    <style name="App.Toolbar.Navigation">
+        <item name="navigationIcon">@drawable/ic_arrow_back</item>
+    </style>
+
+    <!--  Image Style  -->
+    <style name="AppRoundedImage">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <!--  Text Style  -->
+    <style name="App.TextHeadline32" parent="TextAppearance.Material3.HeadlineLarge" />
+
+    <style name="App.TextHeadline24" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="App.TextTitle18" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="App.TextTitle16" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="App.TextBody16" parent="TextAppearance.Material3.BodyLarge" />
+
+    <style name="App.TextBody12" parent="TextAppearance.Material3.BodySmall" />
 
 </resources>

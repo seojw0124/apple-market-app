@@ -137,12 +137,12 @@ object ProductManager {
         return productInfoList.remove(product)
     }
 
-    fun updateLike(productId: Int, isLiked: Boolean): Boolean {
-        val product = getProduct(productId) ?: return false
+    fun updateLike(productId: Int, isLiked: Boolean): ProductInfo? {
+        val product = getProduct(productId) ?: return null
         val likeCount = if (isLiked) product.likeCount + 1 else product.likeCount - 1
         val newProduct = product.copy(isLiked = isLiked, likeCount = likeCount)
         productInfoList[productInfoList.indexOf(product)] = newProduct
-        return true
+        return newProduct
     }
 
     private fun getProduct(productId: Int): ProductInfo? {

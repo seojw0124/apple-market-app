@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.OnBackPressedCallback
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
         )
     }
     private lateinit var likeResult: ActivityResultLauncher<Intent>
+    private var updatedProduct: ProductInfo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -187,7 +189,7 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
 
     private fun navigateToProductDetail(product: ProductInfo) {
         val intent = Intent(this, ProductDetailActivity::class.java)
-        intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT, product)
+        intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT, updatedProduct ?: product)
         likeResult.launch(intent)
     }
 
@@ -229,17 +231,20 @@ class MainActivity : AppCompatActivity(), ProductItemClickListener {
     }
 
     override fun onLikeClick(productId: Int, isLikeImageChecked: Boolean) {
-        val isLikeUpdated = ProductManager.updateLike(productId, isLikeImageChecked)
-        showSnackBar(isLikeUpdated, isLikeImageChecked)
+        updatedProduct = ProductManager.updateLike(productId, isLikeImageChecked)
+        Log.d("MainActivity", "updatedProduct: $updatedProduct")
+        showSnackBar(updatedProduct, isLikeImageChecked)
     }
 
-    private fun showSnackBar(isUpdated: Boolean, isLikeImageChecked: Boolean) {
-        val message = when {
-            isUpdated && isLikeImageChecked -> getString(R.string.message_add_interest_list)
-            isUpdated && !isLikeImageChecked -> getString(R.string.message_remove_interest_list)
-            else -> getString(R.string.message_unknown_error)
+    private fun showSnackBar(updatedProduct: ProductInfo?, isLikeImageChecked: Boolean) {
+        updatedProduct?.let {
+            val message = when {
+                isLikeImageChecked -> getString(R.string.message_add_interest_list)
+                !isLikeImageChecked -> getString(R.string.message_remove_interest_list)
+                else -> getString(R.string.message_unknown_error)
+            }
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
         }
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setOnBackPressedHandler() {

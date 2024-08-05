@@ -3,6 +3,7 @@ package com.jeongu.applemarketapp.ui
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -45,14 +46,15 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun setLayout() {
-        if (product.id == -1) {
-            finish()
-        } else {
+        if (product.id != -1) {
             setProductInfo()
             setSellerMannerGradeInfo()
             initToolbar()
             initLikeImageView()
             setOnBackPressedHandler()
+            Log.d("ProductDetailActivity", "product: $product")
+        } else {
+            finish()
         }
     }
 
@@ -104,17 +106,19 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun handleLikeIconClick() {
-        val isUpdated = ProductManager.updateLike(product.id, binding.ivProductDetailLikeIcon.isChecked)
-        showSnackBar(isUpdated, binding.ivProductDetailLikeIcon.isChecked)
+        val updatedProduct = ProductManager.updateLike(product.id, binding.ivProductDetailLikeIcon.isChecked)
+        showSnackBar(updatedProduct, binding.ivProductDetailLikeIcon.isChecked)
     }
 
-    private fun showSnackBar(isUpdated: Boolean, isLikeImageChecked: Boolean) {
-        val message = when {
-            isUpdated && isLikeImageChecked -> getString(R.string.message_add_interest_list)
-            isUpdated && !isLikeImageChecked -> getString(R.string.message_remove_interest_list)
-            else -> getString(R.string.message_unknown_error)
+    private fun showSnackBar(updatedProduct: ProductInfo?, isLikeImageChecked: Boolean) {
+        updatedProduct?.let {
+            val message = when {
+                isLikeImageChecked -> getString(R.string.message_add_interest_list)
+                !isLikeImageChecked -> getString(R.string.message_remove_interest_list)
+                else -> getString(R.string.message_unknown_error)
+            }
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
         }
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
 
